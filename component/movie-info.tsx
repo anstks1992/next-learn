@@ -1,5 +1,5 @@
 //원래위치 about-us/components
-import { API_URL } from "../app/(home)/page";
+import { API_URL } from "../app/constants";
 import styles from "../styles/movie-info.module.css";
 
 async function getMovies(id: string) {

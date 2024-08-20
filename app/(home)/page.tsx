@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { json } from "stream/consumers";
 import Movie from "../../component/movie";
 import styles from "../../styles/home.module.css";
+import { API_URL } from "../constants";
 
 export const metadata = {
   title: "Home",
@@ -11,7 +12,6 @@ export const metadata = {
 //백엔드에서 데이터를 fetch하면서 useState나 그런것을 안봐도 됨
 //즉각적인 로딩상태를 볼수 잇음(=사용자는 즉시 ui를 볼수잇음)
 //통신이 마무리 되었을때 프레임워크에 의해 실제 결과값으로 자동적으로 교체
-export const API_URL = "https://nomad-movies.nomadcoders.workers.dev/movies";
 
 async function getMovies() {
   // await new Promise((resolve) => setTimeout(resolve, 1000)); //잠시만 느리게
