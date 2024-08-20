@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { json } from "stream/consumers";
+import Movie from "../../component/movie";
+import styles from "../../styles/home.module.css";
 
 export const metadata = {
   title: "Home",
@@ -21,11 +23,31 @@ async function getMovies() {
 export default async function HomePage() {
   const movies = await getMovies();
   return (
-    <div>
+    // <div>
+    //   {movies.map((movie) => (
+    //     <li key={movie.id}>
+    //       <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
+    //     </li>
+    //   ))}
+    // </div>
+
+    // <div>
+    //   {movies.map((movie) => (
+    //     <div key={movie.id}>
+    //       <img src={movie.poster_path} alt={movie.title} />
+    //       <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
+    //     </div>
+    //   ))}
+    // </div>
+
+    <div className={styles.container}>
       {movies.map((movie) => (
-        <li key={movie.id}>
-          <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
-        </li>
+        <Movie
+          key={movie.id}
+          id={movie.id}
+          poster_path={movie.poster_path}
+          title={movie.title}
+        ></Movie>
       ))}
     </div>
   );

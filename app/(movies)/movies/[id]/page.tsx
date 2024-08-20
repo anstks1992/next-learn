@@ -7,8 +7,27 @@
 
 import { Suspense } from "react";
 import { API_URL } from "../../../(home)/page";
-import MovieInfo from "../../../about-us/components/movie-info";
-import MovieVideos from "../../../about-us/components/movie-video";
+import MovieInfo from "../../../../component/movie-info";
+import MovieVideos from "../../../../component/movie-video";
+
+async function getMovies(id: string) {
+  console.log(`fetching movies: ${Date.now()}`);
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  //throw new Error("somethong broke");
+  const response = await fetch(`${API_URL}/${id}`);
+  return response.json();
+}
+
+interface IParams {
+  params: { id: string };
+}
+
+export async function generateMetadata({ params: { id } }: IParams) {
+  const movie = await getMovies(id);
+  return {
+    title: movie.title,
+  };
+}
 
 // 1
 // async function getMovies(id: string) {
@@ -52,11 +71,9 @@ export default async function MovieDetail({
 }) {
   return (
     <div>
-      <h3>Movie detail page</h3>
       <Suspense fallback={<h1>Loading movie info</h1>}>
         <MovieInfo id={id} />
       </Suspense>
-      <h3>Movie video</h3>
       <Suspense fallback={<h1>Loading movie videos</h1>}>
         <MovieVideos id={id} />
       </Suspense>
